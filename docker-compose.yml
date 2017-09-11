@@ -1,0 +1,58 @@
+version: '2'
+services:
+  confluence-postgres:
+    image: postgres:9.6
+    environment:
+      PGDATA: /var/lib/postgresql/data/pgdata
+      POSTGRES_DB: confluence
+      POSTGRES_PASSWORD: confluence
+      POSTGRES_USER: confluence
+    stdin_open: true
+    tty: true
+    volumes_from:
+    - confluence-postgres-data
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.sidekicks: confluence-postgres-data
+
+  confluence:
+    image: blacs30/confluence:6.4.0
+    environment:
+      TOMCAT_PROXY_NAME: confluence.lis.priv
+      TOMCAT_PROXY_PORT: '443'
+      TOMCAT_PROXY_SCHEME: https
+      TOMCAT_PROXY_SECURE: 'true'
+      JVM_MEMORY_MIN: 128m
+      JVM_MEMORY_MAX: 512m
+      SSL_SERVER_ALIAS: confluence.lis.priv
+    stdin_open: true
+    tty: true
+    links:
+    - confluence-postgres:confluence-postgres
+    volumes_from:
+    - confluence-data
+    ports:
+    - 8090:8090/tcp
+    labels:
+      rap.port: '8090'
+      io.rancher.sidekicks: confluence-data
+      rap.host: confluence.lis.priv
+      rap.listen_http_ports: '443'
+
+  confluence-postgres-data:
+    image: busybox
+    network_mode: none
+    volumes:
+    - /mnt/data/confluence/pgdata:/var/lib/postgresql/data
+    labels:
+      io.rancher.container.start_once: 'true'
+
+  confluence-data:
+    image: busybox
+    network_mode: none
+    volumes:
+    - /mnt/data/confluence/data:/var/opt/confluence
+    links:
+    - confluence-postgres:confluence-postgres
+    labels:
+      io.rancher.container.start_once: 'true'
