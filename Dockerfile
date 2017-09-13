@@ -10,7 +10,7 @@ MAINTAINER Blacs30 <gitlab@lisowski-development.com>
 ARG CONTAINER_UID=1000
 ARG CONTAINER_GID=1000
 
-ARG VERSION
+ARG VERSION=6.4.0
 
 # Setup useful environment variables
 ENV CONFLUENCE_INST=/opt/confluence \
