@@ -10,7 +10,7 @@ MAINTAINER Blacs30 <gitlab@lisowski-development.com>
 ARG CONTAINER_UID=1000
 ARG CONTAINER_GID=1000
 
-ARG VERSION=6.4.0
+ARG VERSION=6.5.1
 
 # Setup useful environment variables
 ENV CONFLUENCE_INST=/opt/confluence \
@@ -50,15 +50,12 @@ RUN set -x \
   && touch -d "@0" "${CONFLUENCE_INST}/conf/server.xml" \
   && touch -d "@0" "${CONFLUENCE_INST}/bin/setenv.sh" \
   && touch -d "@0" "${CONFLUENCE_INST}/confluence/WEB-INF/classes/confluence-init.properties" \
-  # Install database drivers
   && rm -f ${CONFLUENCE_INST}/lib/mysql-connector-java*.jar \
   && wget -O /tmp/mysql-connector-java-${MYSQL_DRIVER_VERSION}.tar.gz http://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-${MYSQL_DRIVER_VERSION}.tar.gz \
   && tar xzf /tmp/mysql-connector-java-${MYSQL_DRIVER_VERSION}.tar.gz -C /tmp \
   && cp /tmp/mysql-connector-java-${MYSQL_DRIVER_VERSION}/mysql-connector-java-${MYSQL_DRIVER_VERSION}-bin.jar ${CONFLUENCE_INST}/lib/mysql-connector-java-${MYSQL_DRIVER_VERSION}-bin.jar                                \
   && rm -f ${CONFLUENCE_INST}/lib/postgresql-*.jar                                                                \
   && wget -O ${CONFLUENCE_INST}/lib/postgresql-${POSTGRESQL_DRIVER_VERSION}.jar https://jdbc.postgresql.org/download/postgresql-${POSTGRESQL_DRIVER_VERSION}.jar \
-  # Install atlassian ssl tool
-  # Clean caches and tmps
   && rm -rf /var/cache/apk/*                   \
   && rm -rf /tmp/*                                   \
   && rm -rf /var/log/*
