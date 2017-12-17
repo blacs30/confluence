@@ -10,7 +10,7 @@ MAINTAINER Blacs30 <gitlab@lisowski-development.com>
 ARG CONTAINER_UID=1000
 ARG CONTAINER_GID=1000
 
-ARG VERSION=6.5.1
+ARG VERSION=6.6.0
 
 # Setup useful environment variables
 ENV CONFLUENCE_INST=/opt/confluence \
@@ -66,7 +66,7 @@ ADD files/entrypoint /usr/local/bin/entrypoint
 
 EXPOSE 8009 8090 8091
 
-VOLUME ${CONFLUENCE_HOME}
+VOLUME [ "${CONFLUENCE_HOME}", "/var/opt/confluence/backups" ]
 
 ENTRYPOINT ["/usr/local/bin/entrypoint"]
 
