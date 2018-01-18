@@ -19,7 +19,7 @@ ENV CONFLUENCE_INST=/opt/confluence \
   SYSTEM_GROUP=confluence \
   SYSTEM_HOME=/home/confluence \
   MYSQL_DRIVER_VERSION=5.1.38 \
-  POSTGRESQL_DRIVER_VERSION=9.4.1207 \
+  POSTGRESQL_DRIVER_VERSION=9.4.1212 \
   DEBIAN_FRONTEND=noninteractive
 
 # Install Atlassian Confluence and helper tools and setup initial home
