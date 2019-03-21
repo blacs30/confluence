@@ -3,14 +3,14 @@
 # Based on frolvlad/alpine-oraclejdk8:cleaned
 ##############################################################################
 
-FROM frolvlad/alpine-oraclejdk8:cleaned
+FROM frolvlad/alpine-java:jdk8.202.08-cleaned
 MAINTAINER Blacs30 <gitlab@lisowski-development.com>
 
 # permissions
 ARG CONTAINER_UID=1000
 ARG CONTAINER_GID=1000
 
-ARG VERSION=6.13.0
+ARG VERSION=6.15.1
 
 # Setup useful environment variables
 ENV CONFLUENCE_INST=/opt/confluence \
